@@ -1,0 +1,56 @@
+<aside class="bg-gray-900 text-white h-full flex flex-col">
+  <!-- Logo -->
+  <div class="p-6 border-b border-gray-800">
+    <h1 class="text-2xl font-bold">MiDespacho</h1>
+    <p class="text-sm text-gray-400">Legal Management</p>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="flex-1 px-4 py-6 space-y-2">
+    <a routerLink="/dashboard" routerLinkActive="bg-gray-800 text-white" 
+       class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 rounded-lg transition">
+      <mat-icon class="mr-3">dashboard</mat-icon>
+      Dashboard
+    </a>
+
+    <a routerLink="/processes" routerLinkActive="bg-gray-800 text-white"
+       class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 rounded-lg transition">
+      <mat-icon class="mr-3">gavel</mat-icon>
+      Procesos
+    </a>
+
+    <a routerLink="/clients" routerLinkActive="bg-gray-800 text-white"
+       class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 rounded-lg transition">
+      <mat-icon class="mr-3">people</mat-icon>
+      Clientes
+      <span class="ml-auto text-xs bg-yellow-600 px-2 py-1 rounded">Pronto</span>
+    </a>
+
+    <a routerLink="/billing" routerLinkActive="bg-gray-800 text-white"
+       class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 rounded-lg transition">
+      <mat-icon class="mr-3">receipt</mat-icon>
+      Facturación
+      <span class="ml-auto text-xs bg-yellow-600 px-2 py-1 rounded">Pronto</span>
+    </a>
+
+    <a routerLink="/settings" routerLinkActive="bg-gray-800 text-white"
+       class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 rounded-lg transition">
+      <mat-icon class="mr-3">settings</mat-icon>
+      Parametrización
+      <span class="ml-auto text-xs bg-yellow-600 px-2 py-1 rounded">Pronto</span>
+    </a>
+  </nav>
+
+  <!-- User -->
+  <div class="p-4 border-t border-gray-800">
+    <div class="flex items-center">
+      <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
+        <mat-icon class="text-white">person</mat-icon>
+      </div>
+      <div class="ml-3">
+        <p class="text-sm font-medium">Admin</p>
+        <p class="text-xs text-gray-400">admin@midespacho.com</p>
+      </div>
+    </div>
+  </div>
+</aside>

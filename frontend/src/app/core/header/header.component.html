@@ -1,0 +1,11 @@
+<header class="bg-white shadow-sm">
+  <div class="px-6 py-4 flex justify-between items-center">
+    <h2 class="text-xl font-semibold text-gray-800">{{ pageTitle }}</h2>
+    <div class="flex items-center space-x-4">
+      <button mat-icon-button>
+        <mat-icon>notifications</mat-icon>
+      </button>
+      <span class="text-sm text-gray-600">{{ currentDate | date:'dd/MM/yyyy' }}</span>
+    </div>
+  </div>
+</header>
