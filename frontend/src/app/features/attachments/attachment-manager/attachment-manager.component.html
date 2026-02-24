@@ -1,0 +1,97 @@
+<h2 mat-dialog-title class="flex justify-between items-center">
+  <span>Anexos del Proceso: {{ data.procesoTitulo }}</span>
+  <button mat-icon-button (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</h2>
+
+<mat-dialog-content class="p-6">
+  <!-- Formulario de subida -->
+  <div class="mb-8 p-4 border rounded-lg bg-gray-50">
+    <h3 class="text-lg font-semibold mb-4">Subir nuevos anexos</h3>
+    
+    <form [formGroup]="uploadForm" class="space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Título del conjunto</mat-label>
+          <input matInput formControlName="titulo" placeholder="Ej: Documentos de identidad">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Descripción</mat-label>
+          <input matInput formControlName="descripcion" placeholder="Ej: Cédulas y certificados">
+        </mat-form-field>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button mat-raised-button type="button" (click)="fileInput.click()">
+          <mat-icon>attach_file</mat-icon>
+          Seleccionar archivos
+        </button>
+        <span class="text-sm text-gray-600">
+          {{ selectedFiles.length }} archivo(s) seleccionado(s)
+        </span>
+        <input #fileInput type="file" multiple (change)="onFileSelected($event)" class="hidden" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+      </div>
+
+      <div class="flex justify-end">
+        <button mat-raised-button color="primary" 
+                (click)="uploadFiles()" 
+                [disabled]="uploadForm.invalid || selectedFiles.length === 0 || uploading">
+          <mat-icon>cloud_upload</mat-icon>
+          Subir archivos
+        </button>
+      </div>
+
+      <mat-progress-bar *ngIf="uploading" mode="indeterminate"></mat-progress-bar>
+    </form>
+  </div>
+
+  <!-- Listado de anexos -->
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Anexos existentes</h3>
+    
+    <table mat-table [dataSource]="attachments" class="w-full">
+      
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Archivo</th>
+        <td mat-cell *matCellDef="let a">{{ a.nombreArchivo }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef>Título</th>
+        <td mat-cell *matCellDef="let a">{{ a.tituloContextual }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef>Fecha</th>
+        <td mat-cell *matCellDef="let a">{{ a.fechaSubida | date:'dd/MM/yyyy' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="tamano">
+        <th mat-header-cell *matHeaderCellDef>Tamaño</th>
+        <td mat-cell *matCellDef="let a">{{ formatFileSize(a.tamano) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let a">
+          <button mat-icon-button color="warn" (click)="deleteAttachment(a.id)" matTooltip="Eliminar">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div *ngIf="attachments.length === 0" class="text-center py-8 text-gray-500">
+      No hay anexos para este proceso
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cerrar</button>
+</mat-dialog-actions>

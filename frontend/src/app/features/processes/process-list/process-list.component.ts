@@ -12,6 +12,8 @@ import { RouterModule } from '@angular/router';
 import { ProcessService, Process } from '../../../services/process.service';
 import { ProcessFormComponent } from '../process-form/process-form.component';
 import { ProcessDetailComponent } from '../process-detail/process-detail.component';
+import { AttachmentManagerComponent } from '../../attachments/attachment-manager/attachment-manager.component';
+
 
 @Component({
   selector: 'app-process-list',
@@ -76,7 +78,13 @@ export class ProcessListComponent implements OnInit {
   }
 
   openAttachments(process: Process) {
-    // TODO
+    this.dialog.open(AttachmentManagerComponent, {
+      width: '800px',
+      data: { 
+        procesoId: process.id, 
+        procesoTitulo: process.titulo 
+      }
+    });
   }
 
 editProcess(process?: Process) {
