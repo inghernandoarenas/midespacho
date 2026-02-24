@@ -7,13 +7,13 @@ import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatCardModule } from '@angular/material/card'; // 👈 FALTABA
+import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
 import { ProcessService, Process } from '../../../services/process.service';
 import { ProcessFormComponent } from '../process-form/process-form.component';
 import { ProcessDetailComponent } from '../process-detail/process-detail.component';
 import { AttachmentManagerComponent } from '../../attachments/attachment-manager/attachment-manager.component';
-import { ActivatedRoute, Router } from '@angular/router'; // 👈 IMPORTAR
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-process-list',
@@ -28,7 +28,7 @@ import { ActivatedRoute, Router } from '@angular/router'; // 👈 IMPORTAR
     MatDialogModule,
     MatSnackBarModule,
     MatTooltipModule,
-    MatCardModule // 👈 AGREGADO
+    MatCardModule
   ],
   templateUrl: './process-list.component.html',
   styleUrls: ['./process-list.component.css']
@@ -46,14 +46,12 @@ export class ProcessListComponent implements OnInit {
     private processService: ProcessService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private route: ActivatedRoute, // 👈 INYECTAR
-    private router: Router // 👈 INYECTAR
+    private route: ActivatedRoute, 
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.loadProcesses();
-
-    // Escuchar cambios en la navegación
     this.router.events.subscribe(() => {
       if (this.route.snapshot.routeConfig?.path === 'processes') {
         this.loadProcesses();

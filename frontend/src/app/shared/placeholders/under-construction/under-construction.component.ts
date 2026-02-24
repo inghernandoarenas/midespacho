@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-under-construction',
   standalone: true,
   imports: [CommonModule, MatIconModule],
-  templateUrl: './under-construction.component.html', // ¡CORREGIDO!
+  templateUrl: './under-construction.component.html',
   styleUrls: ['./under-construction.component.css']
 })
 export class UnderConstructionComponent {}

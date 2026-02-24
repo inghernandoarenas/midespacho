@@ -8,9 +8,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AttachmentService, Attachment } from '../../../services/attachment.service';
-import { MatFormFieldModule } from '@angular/material/form-field'; // 👈 FALTABA
-import { MatInputModule } from '@angular/material/input';           // 👈 FALTABA
-import { MatTooltipModule } from '@angular/material/tooltip';       // 👈 FALTABA
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip'; 
 
 @Component({
   selector: 'app-attachment-manager',
@@ -24,9 +24,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';       // 👈 FALT
     MatTableModule,
     MatSnackBarModule,
     MatProgressBarModule,
-    MatFormFieldModule, // 👈 AGREGADO
-    MatInputModule,      // 👈 AGREGADO
-    MatTooltipModule     // 👈 AGREGADO
+    MatFormFieldModule, 
+    MatInputModule,    
+    MatTooltipModule   
   ],
   templateUrl: './attachment-manager.component.html',
   styleUrls: ['./attachment-manager.component.css']

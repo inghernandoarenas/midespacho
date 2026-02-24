@@ -188,7 +188,6 @@ export class DashboardComponent implements OnInit {
   }
 
   loadStats() {
-    // Esto lo haremos después con un endpoint específico
     this.processService.getAll(1, 100).subscribe({
       next: (response) => {
         this.activeCount = response.data.filter(p => p.estado === 'Activo').length;
