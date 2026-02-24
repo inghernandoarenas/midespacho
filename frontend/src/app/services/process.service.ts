@@ -11,9 +11,12 @@ export interface Process {
   fechaInicio: string;
   fechaVencimiento: string;
   clienteId: string;
+  createdAt?: string; // 👈 AGREGAR OPCIONAL
   cliente?: {
     id: string;
     nombre: string;
+    email?: string;    // 👈 AGREGAR OPCIONAL
+    telefono?: string; // 👈 AGREGAR OPCIONAL
   };
 }
 

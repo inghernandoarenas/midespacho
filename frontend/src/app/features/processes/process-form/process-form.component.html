@@ -1,0 +1,83 @@
+<h2 mat-dialog-title>{{ data?.process ? 'Editar' : 'Nuevo' }} Proceso</h2>
+
+<form [formGroup]="processForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="p-4">
+    <div class="grid grid-cols-1 gap-4">
+      
+      <!-- Título -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Título del proceso</mat-label>
+        <input matInput formControlName="titulo" placeholder="Ej: Demanda laboral contra XYZ">
+        <mat-error *ngIf="processForm.get('titulo')?.invalid">
+          El título es requerido
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Descripción -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="descripcion" rows="3"></textarea>
+      </mat-form-field>
+
+      <!-- Cliente -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Cliente</mat-label>
+        <mat-select formControlName="clienteId">
+          <mat-option *ngFor="let client of clients" [value]="client.id">
+            {{ client.nombre }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="processForm.get('clienteId')?.invalid">
+          Seleccione un cliente
+        </mat-error>
+      </mat-form-field>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Tipo de Proceso -->
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo</mat-label>
+          <mat-select formControlName="tipoProceso">
+            <mat-option *ngFor="let tipo of tiposProceso" [value]="tipo">
+              {{ tipo }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Estado -->
+        <mat-form-field appearance="outline">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="estado">
+            <mat-option *ngFor="let estado of estados" [value]="estado">
+              {{ estado }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Fecha Inicio -->
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de inicio</mat-label>
+          <input matInput [matDatepicker]="pickerInicio" formControlName="fechaInicio">
+          <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+          <mat-datepicker #pickerInicio></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Fecha Vencimiento -->
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de vencimiento</mat-label>
+          <input matInput [matDatepicker]="pickerVenc" formControlName="fechaVencimiento">
+          <mat-datepicker-toggle matSuffix [for]="pickerVenc"></mat-datepicker-toggle>
+          <mat-datepicker #pickerVenc></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="processForm.invalid">
+      {{ data?.process ? 'Actualizar' : 'Guardar' }}
+    </button>
+  </mat-dialog-actions>
+</form>

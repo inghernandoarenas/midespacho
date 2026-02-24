@@ -10,6 +10,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card'; // 👈 FALTABA
 import { RouterModule } from '@angular/router';
 import { ProcessService, Process } from '../../../services/process.service';
+import { ProcessFormComponent } from '../process-form/process-form.component';
+import { ProcessDetailComponent } from '../process-detail/process-detail.component';
 
 @Component({
   selector: 'app-process-list',
@@ -67,20 +69,52 @@ export class ProcessListComponent implements OnInit {
   }
 
   openDetail(process: Process) {
-    // TODO
+    this.dialog.open(ProcessDetailComponent, {
+      width: '600px',
+      data: process
+    });
   }
 
   openAttachments(process: Process) {
     // TODO
   }
 
-  editProcess(process?: Process) { // 👈 CAMBIADO A OPCIONAL
-    if (process) {
-      console.log('Editar:', process);
-    } else {
-      console.log('Nuevo proceso');
+editProcess(process?: Process) {
+  const dialogRef = this.dialog.open(ProcessFormComponent, {
+    width: '600px',
+    data: { process }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      if (process) {
+        // Actualizar
+        this.processService.update(process.id, result).subscribe({
+          next: () => {
+            this.snackBar.open('Proceso actualizado', 'Cerrar', { duration: 3000 });
+            this.loadProcesses();
+          },
+          error: () => {
+            this.snackBar.open('Error al actualizar', 'Cerrar', { duration: 3000 });
+          }
+        });
+      } else {
+        // Crear nuevo
+        this.processService.create(result).subscribe({
+          next: () => {
+            this.snackBar.open('Proceso creado', 'Cerrar', { duration: 3000 });
+            this.loadProcesses();
+          },
+          error: () => {
+            this.snackBar.open('Error al crear', 'Cerrar', { duration: 3000 });
+          }
+        });
+      }
     }
-  }
+  });
+}
+
+
 
   deleteProcess(id: string) {
     if (confirm('¿Está seguro de eliminar este proceso?')) {

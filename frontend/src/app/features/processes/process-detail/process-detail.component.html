@@ -1,0 +1,70 @@
+<h2 mat-dialog-title class="flex justify-between items-center">
+  <span>Detalles del Proceso</span>
+  <button mat-icon-button (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</h2>
+
+<mat-dialog-content class="p-6">
+  <div class="space-y-6">
+    
+    <!-- Título y Estado -->
+    <div class="flex justify-between items-start">
+      <div>
+        <h3 class="text-xl font-semibold text-gray-800">{{ process.titulo }}</h3>
+        <p class="text-sm text-gray-500">ID: {{ process.id }}</p>
+      </div>
+      <span class="px-3 py-1 rounded-full text-sm font-medium {{ getEstadoClass(process.estado) }}">
+        {{ process.estado }}
+      </span>
+    </div>
+
+    <!-- Grid de información -->
+    <div class="grid grid-cols-2 gap-6">
+      
+      <!-- Cliente -->
+      <div>
+        <p class="text-sm text-gray-500 mb-1">Cliente</p>
+        <p class="font-medium">{{ process.cliente?.nombre || 'No asignado' }}</p>
+        <p *ngIf="process.cliente?.email" class="text-sm text-gray-600">{{ process.cliente?.email }}</p>
+        <p *ngIf="process.cliente?.telefono" class="text-sm text-gray-600">{{ process.cliente?.telefono }}</p>
+      </div>
+
+      <!-- Tipo de Proceso -->
+      <div>
+        <p class="text-sm text-gray-500 mb-1">Tipo de Proceso</p>
+        <p class="font-medium">{{ process.tipoProceso }}</p>
+      </div>
+
+      <!-- Fechas -->
+      <div>
+        <p class="text-sm text-gray-500 mb-1">Fecha de Inicio</p>
+        <p class="font-medium">{{ process.fechaInicio | date:'dd/MM/yyyy' }}</p>
+      </div>
+
+      <div>
+        <p class="text-sm text-gray-500 mb-1">Fecha de Vencimiento</p>
+        <p class="font-medium" [class.text-orange-600]="process.fechaVencimiento">
+          {{ process.fechaVencimiento ? (process.fechaVencimiento | date:'dd/MM/yyyy') : 'Sin vencimiento' }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Descripción -->
+    <div *ngIf="process.descripcion">
+      <p class="text-sm text-gray-500 mb-1">Descripción</p>
+      <p class="text-gray-700 bg-gray-50 p-3 rounded">{{ process.descripcion }}</p>
+    </div>
+
+    <!-- Información adicional -->
+    <div class="border-t pt-4" *ngIf="process.createdAt">
+      <p class="text-xs text-gray-400">
+        Creado: {{ process.createdAt | date:'dd/MM/yyyy HH:mm' }}
+      </p>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cerrar</button>
+</mat-dialog-actions>
