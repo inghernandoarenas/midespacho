@@ -13,7 +13,7 @@ import { ProcessService, Process } from '../../../services/process.service';
 import { ProcessFormComponent } from '../process-form/process-form.component';
 import { ProcessDetailComponent } from '../process-detail/process-detail.component';
 import { AttachmentManagerComponent } from '../../attachments/attachment-manager/attachment-manager.component';
-
+import { ActivatedRoute, Router } from '@angular/router'; // 👈 IMPORTAR
 
 @Component({
   selector: 'app-process-list',
@@ -45,11 +45,20 @@ export class ProcessListComponent implements OnInit {
   constructor(
     private processService: ProcessService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute, // 👈 INYECTAR
+    private router: Router // 👈 INYECTAR
   ) {}
 
   ngOnInit() {
     this.loadProcesses();
+
+    // Escuchar cambios en la navegación
+    this.router.events.subscribe(() => {
+      if (this.route.snapshot.routeConfig?.path === 'processes') {
+        this.loadProcesses();
+      }
+    });
   }
 
   loadProcesses() {

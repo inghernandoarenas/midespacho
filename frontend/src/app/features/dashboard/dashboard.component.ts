@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { ProcessService, Process } from '../../services/process.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -155,9 +157,23 @@ export class DashboardComponent implements OnInit {
   upcomingCount = 0;
   completedCount = 0;
 
-  constructor(private processService: ProcessService) {}
+  constructor(
+    private processService: ProcessService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
+    this.loadData();
+    
+    this.router.events.subscribe(() => {
+      if (this.route.snapshot.routeConfig?.path === 'dashboard') {
+        this.loadData();
+      }
+    });
+  }
+
+  loadData() {
     this.loadUpcoming();
     this.loadStats();
   }
